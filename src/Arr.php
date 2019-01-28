@@ -44,13 +44,13 @@ class Arr
      * Gets an item from an array using path notation
      *
      * @param array|ArrayAccess $array
-     * @param string            $key
-     * @param null              $default
+     * @param string|null       $key
+     * @param mixed             $default
      * @param string            $sep
      *
      * @return mixed
      */
-    public static function get($array, string $key, $default = null, string $sep = '.')
+    public static function get($array, string $key = null, $default = null, string $sep = '.')
     {
         if (!static::accessible($array)) {
             return $default;
