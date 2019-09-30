@@ -23,4 +23,62 @@ class Str
         
         return  $charStart <= $char && $char <= $charEnd;
     }
+    
+    /**
+     * Converts to studly case
+     *
+     * @param string $value
+     *
+     * @return string
+     */
+    public static function studlyCase(string $value): string
+    {
+        $value = ucwords(str_replace(['-', '_'], ' ', $value));
+        
+        return str_replace(' ', '', $value);
+    }
+    
+    /**
+     * Converts to camel case
+     *
+     * @param string $value
+     *
+     * @return string
+     */
+    public static function camelCase(string $value): string
+    {
+        return lcfirst(static::studlyCase($value));
+    }
+    
+    /**
+     * Converts to snake case
+     *
+     * @param string $value
+     * @param string $delimiter
+     *
+     * @return string
+     */
+    public static function snakeCase(string $value, $delimiter = '_'): string
+    {
+        if (!ctype_lower($value)) {
+            $value = preg_replace('/\s+/u', '', ucwords($value));
+            $value = preg_replace('/(.)(?=[A-Z])/u', '$1' . $delimiter, $value);
+            $value = mb_strtolower($value);
+        }
+        
+        return $value;
+    }
+    
+    /**
+     * Converts to kebab case
+     *
+     * @param string $value
+     * @param string $delimiter
+     *
+     * @return string
+     */
+    public static function kebabCase(string $value, $delimiter = '-')
+    {
+        return static::snakeCase($value, $delimiter);
+    }
 }
