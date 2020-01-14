@@ -81,4 +81,23 @@ class Str
     {
         return static::snakeCase($value, $delimiter);
     }
+    
+    /**
+     * Removes duplicate path segment separators
+     *
+     * @param string $uri
+     * @param string $separator
+     *
+     * @return string
+     */
+    public static function fixPathSeparators(string $uri, string $separator): string
+    {
+        // replace multiple separator occurrences with
+        // single one preserving protocol slashes (://)
+        return preg_replace(
+            '~(?<=[^:\s])(' . $separator . '+' . $separator . ')~',
+            $separator,
+            $uri
+        );
+    }
 }
