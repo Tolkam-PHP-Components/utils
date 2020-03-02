@@ -100,4 +100,30 @@ class Str
             $uri
         );
     }
+    
+    /**
+     * Hides characters behind mask
+     *
+     * @param string $value
+     * @param int    $visiblePercentage
+     * @param int    $minMaskLength
+     * @param string $maskChar
+     *
+     * @return string
+     */
+    public static function mask(
+        string $value,
+        int $visiblePercentage = 25,
+        int $minMaskLength = 2,
+        string $maskChar = '*'
+    ): string {
+        $strLength = mb_strlen($value);
+        
+        $maskLength = intval(floor((100 - $visiblePercentage) / 100 * $strLength));
+        $maskLength = max($maskLength, $minMaskLength);
+        
+        $visibleLength = $strLength - $maskLength;
+        
+        return substr_replace($value, str_repeat($maskChar, $maskLength), $visibleLength);
+    }
 }
