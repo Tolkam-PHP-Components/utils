@@ -31,8 +31,13 @@ class Random
         $lower  = 'abcdefghijklmnopqrstuvwxyz';
         $upper  = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $digits = '0123456789';
+        $extra = '!@#$%^&*()';
     
         switch ($charset) {
+            case('numeric'):
+                // 10 characters in pool
+                $pool = $digits;
+                break;
             case('alpha'):
                 // 52 characters in pool
                 $pool = $lower . $upper;
@@ -47,7 +52,8 @@ class Random
                 $pool = 'aAbBdDeEgGhHjJkKlLmMnNoOpPqQrRvVwWxXyYzZ' . $digits;
                 break;
             case('wide'):
-                $pool = '!@#$%^&*()' . $lower . $upper . $digits;
+                // 72 characters
+                $pool = $extra . $lower . $upper . $digits;
                 break;
             default:
                 throw new RuntimeException('Unknown charset type');
