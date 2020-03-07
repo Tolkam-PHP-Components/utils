@@ -118,12 +118,30 @@ class Str
         string $maskChar = '*'
     ): string {
         $strLength = mb_strlen($value);
-        
+    
         $maskLength = intval(floor((100 - $visiblePercentage) / 100 * $strLength));
         $maskLength = max($maskLength, $minMaskLength);
-        
+    
         $visibleLength = $strLength - $maskLength;
-        
+    
         return substr_replace($value, str_repeat($maskChar, $maskLength), $visibleLength);
+    }
+    
+    /**
+     * Returns class short name
+     *
+     * @param string $fqn
+     *
+     * @return false|string
+     */
+    public static function classBasename(string $fqn)
+    {
+        $lastSlashPos = strrchr($fqn, '\\');
+        
+        if ($lastSlashPos === false) {
+            return $fqn;
+        }
+        
+        return substr($lastSlashPos, 1);
     }
 }
