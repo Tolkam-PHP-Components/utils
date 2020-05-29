@@ -144,4 +144,53 @@ class Str
         
         return substr($lastSlashPos, 1);
     }
+    
+    /**
+     * Truncates string to the given length
+     *
+     * @param string $value
+     * @param int    $length
+     * @param bool   $wholeWords
+     * @param string $suffix
+     *
+     * @return string
+     */
+    public static function truncate(
+        string $value,
+        int $length,
+        bool $wholeWords = false,
+        string $suffix = '&#8230;'
+    ) {
+        if ($value && mb_strlen($value) > $length) {
+            if ($wholeWords) {
+                if (false !== ($breakpoint = mb_strpos($value, ' ', $length))) {
+                    $length = $breakpoint;
+                }
+            }
+            
+            return rtrim(mb_substr($value, 0, $length)) . $suffix;
+        }
+        
+        return $value;
+    }
+    
+    /**
+     * Adds trailing character if no stop-characters found
+     *
+     * @param string $str
+     * @param string $char
+     * @param array  $stopChars
+     *
+     * @return string
+     */
+    public static function addTrailingChar(string $str, string $char, array $stopChars = [])
+    {
+        $pattern = '~^(.*?)(\\' . implode('|\\', $stopChars) . ')$~';
+        
+        if (!preg_match($pattern, $str)) {
+            $str .= $char;
+        }
+        
+        return $str;
+    }
 }
