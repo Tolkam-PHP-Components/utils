@@ -38,6 +38,10 @@ class Random
                 // 10 characters in pool
                 $pool = $digits;
                 break;
+            case('alpha-lower'):
+                // 26 characters in pool
+                $pool = $lower;
+                break;
             case('alpha'):
                 // 52 characters in pool
                 $pool = $lower . $upper;
@@ -46,14 +50,14 @@ class Random
                 // 62 characters in pool
                 $pool = $lower . $upper . $digits;
                 break;
+            case('wide'):
+                // 72 characters
+                $pool = $extra . $lower . $upper . $digits;
+                break;
             case('nice'):
                 // 50 characters in pool
                 // without the letters that can form a 'bad' word
                 $pool = 'aAbBdDeEgGhHjJkKlLmMnNoOpPqQrRvVwWxXyYzZ' . $digits;
-                break;
-            case('wide'):
-                // 72 characters
-                $pool = $extra . $lower . $upper . $digits;
                 break;
             default:
                 throw new RuntimeException('Unknown charset type');
