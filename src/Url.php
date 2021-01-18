@@ -2,6 +2,8 @@
 
 namespace Tolkam\Utils;
 
+use const PHP_URL_SCHEME;
+
 class Url
 {
     /**
@@ -13,7 +15,7 @@ class Url
      *
      * @return array
      */
-    public static function parse(string $url)
+    public static function parse(string $url): array
     {
         $parsed = parse_url($url);
         parse_str($parsed['query'] ?? '', $parsed['query']);
@@ -31,8 +33,11 @@ class Url
      *
      * @return string
      */
-    public static function build(array $parsed, string $querySep = '?', string $argSep = '&')
-    {
+    public static function build(
+        array $parsed,
+        string $querySep = '?',
+        string $argSep = '&'
+    ): string {
         $str = '';
         if ($scheme = $parsed['scheme'] ?? '') {
             $str .= $scheme . '://';
@@ -66,5 +71,52 @@ class Url
         }
         
         return $str;
+    }
+    
+    /**
+     * Makes url absolute
+     *
+     * This method does not checks for url validity
+     *
+     * @param string $url
+     * @param string $authority
+     * @param string $scheme
+     *
+     * @return string
+     */
+    public static function toAbsolute(
+        string $url,
+        string $authority,
+        string $scheme = ''
+    ): string {
+        if (static::isAbsolute($url)) {
+            return $url;
+        }
+        
+        $sep = '/';
+        $scheme .= $scheme ? ':' : '';
+        
+        return rtrim(Str::fixPathSeparators(
+            $scheme . '//' . $authority . $sep . $url, $sep
+        ), $sep);
+    }
+    
+    /**
+     * Checks if url is absolute
+     *
+     * This method does not checks for url validity
+     *
+     * @param string $url
+     *
+     * @return bool
+     */
+    public static function isAbsolute(string $url): bool
+    {
+        // starts with double slash
+        if (strlen($url) > 2 && substr($url, 0, 2) === '//' && $url[2] !== '/') {
+            return true;
+        }
+        
+        return is_string(parse_url($url, PHP_URL_SCHEME));
     }
 }
