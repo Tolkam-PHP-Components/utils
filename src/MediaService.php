@@ -13,6 +13,7 @@ class MediaService
     const TWITTER               = 'twitter';
     const FACEBOOK              = 'facebook';
     const GIPHY                 = 'giphy';
+    const YANDEXMAP             = 'yandexmap';
     const YANDEXMAP_CONSTRUCTOR = 'yandexmapconstructor';
     const GOOGLEMAP             = 'googlemap';
     
@@ -29,7 +30,8 @@ class MediaService
         '/(?:https?:\/\/)?(?:w{3}\.)?twitter\.com\/(?:#!\/)?(?:\w+)\/status(?:es)?\/(\d+)/' => self::TWITTER,
         '/(?:https?:\/\/)?(?:w{3}\.)?facebook\.com\/(?:(?:\w)*#!\/)?(?:pages\/)?[\w\-]*?\/(?:[\w\-]*)?\/([\w\-]*)/' => self::FACEBOOK,
         '/(?:https?:\/\/)?(?:w{3}\.)?giphy\.com\/gifs\/(?:[\w\-]*-)?([a-zA-Z0-9]*)/' => self::GIPHY,
-        '/(?:https?:\/\/)?(?:w{3}\.)?yandex\.ru\/maps\/(?:.*)?(?:\?um=|&um=)([a-z0-9:%3A]*)(?:&)*?/' => self::YANDEXMAP_CONSTRUCTOR,
+        '/(?:https?:\/\/)?(?:w{3}\.)?yandex\.[a-z]{2}\/maps\/-\/?([\w\-]+)(?:\S+)?/' => self::YANDEXMAP,
+        '/(?:https?:\/\/)?(?:w{3}\.)?yandex\.[a-z]{2}\/maps\/(?:.*)?(?:\?um=|&um=)([a-z0-9:%3A]*)(?:&)*?/' => self::YANDEXMAP_CONSTRUCTOR,
         '/(?:https?:\/\/)?(?:w{3}\.)?google\.com\/maps\/embed(?:.*)?(?:\?pb=|&pb=)([a-zA-Z0-9\!\.]*)(?:&)*?/' => self::GOOGLEMAP,
     ];
     
