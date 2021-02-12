@@ -2,6 +2,9 @@
 
 namespace Tolkam\Utils;
 
+/**
+ * @deprecated Use MediaService instead
+ */
 class OEmbed
 {
     /**
