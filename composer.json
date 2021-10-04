@@ -3,6 +3,12 @@
     "description": "Useful utility functions",
     "type": "library",
     "license": "proprietary",
+    "author": {
+        "name": "Kanstantsin Kulesh",
+        "email": "kk@tolkam.com",
+        "homepage": "https://www.tolkam.com",
+        "role": "Developer"
+    },
     "autoload": {
         "psr-4": {
             "Tolkam\\Utils\\": "src"
@@ -11,7 +17,7 @@
     "require": {
         "ext-mbstring": "*",
         "ext-ctype": "*",
-        "php": ">=7.2.0"
+        "php": ">=7.2"
     },
     "extra": {
         "branch-alias": {
